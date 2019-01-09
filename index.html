@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>NIK Checker</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+    <div>
+        <input name='nik' type="number" placeholder="NIK"><br>
+        <input onclick="check()" type="button" value="Check">
+    </div>
+    <div id="data">
+        
+    </div>
+
+    <script src="jquery.min.js"></script>
+    <script>
+    
+        function check() {
+                    $("#data").html("<h3>Loading</h3>")
+            
+            let nik = $('input[name=nik]').val();
+            fetch('https://sleepy-thicket-78797.herokuapp.com/'+nik,{
+                method:"GET"
+            }).then(res => {
+                console.log(res);
+                return res.json();
+            }).then(data => {
+                if(data.aaData == []){
+                    $("#data").html("<h3>Tidak di temukan</h3>")
+                }else{
+                    $("#data").html(make(data.aaData[0]));
+                }
+                $('input[name=nik]').val('');
+            })
+
+        }
+
+        function make(data){
+            let info = "<div></div>";
+            info = $(info).append("<span>NIK : "+ data.nik + "</span><br>")
+            info = $(info).append("<span>Nama : "+data.nama + "</span><br>")
+            info = $(info).append("<span>Jenis Kelamin : "+data.jenisKelamin+"</span><br>")
+            info = $(info).append("<span>Provinsi : "+data.namaPropinsi + "</span><br>")
+            info = $(info).append("<span>Kab/kota : "+data.namaKabKota+"</span><br>")
+            info = $(info).append("<span>Kecamatan : "+data.namaKecamatan + "</span><br>")
+            info = $(info).append("<span>Kelurahan : "+data.namaKelurahan+"</span><br>")
+
+            return info;
+        }
+    </script>
+</body>
+</html>
