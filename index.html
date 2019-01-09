@@ -29,10 +29,10 @@
                 return res.json();
             }).then(data => {
                 console.log(data);
-                if(data.aaData.length < 1){
+                if(data == []){
                     $("#data").html("<h3>Tidak di temukan</h3>")
                 }else{
-                    $("#data").html(make(data.aaData[0]));
+                    $("#data").html(make(data));
                 }
                 $('input[name=nik]').val('');
             })
