@@ -28,7 +28,8 @@
                 console.log(res);
                 return res.json();
             }).then(data => {
-                if(data.aaData == []){
+                console.log(data);
+                if(data.aaData.length < 1){
                     $("#data").html("<h3>Tidak di temukan</h3>")
                 }else{
                     $("#data").html(make(data.aaData[0]));
